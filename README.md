@@ -13,6 +13,12 @@
 > [!NOTE]
 > This is a fork of [JingMatrix/TEESimulator](https://github.com/JingMatrix/TEESimulator). It adds certificate generation written in Rust, generated keys that survive reboots, and attestation behavior that matches stock Android. See the upstream repo for the original project.
 
+This fork maps Android 17 (SDK 37) to OS version 170000 when cached attestation
+data is unavailable. The change matches the separately patched 282 build tested
+on our Pixel 10 Pro XL. A source-built module from this fork has not yet been
+tested on the phone. Automatic module updates are disabled until the fork has a
+verified release; the upstream update feed could replace this change.
+
 ## What it does
 
 Some Android apps refuse to run on a rooted phone. They ask the phone to prove it still has a genuine security chip, a check called hardware attestation. A rooted phone normally fails that check.
@@ -31,6 +37,8 @@ It replaces TrickyStore and its forks completely. It reads config from the same 
 3. A `keybox.xml` file at `/data/adb/tricky_store/keybox.xml`
 
 ## Quick start
+
+The release link below points to upstream and does not contain this fork's fix.
 
 1. Download the latest ZIP from [Releases](https://github.com/Enginex0/TEESimulator-RS/releases).
 2. Install it with your root manager, then reboot.
