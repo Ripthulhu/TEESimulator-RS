@@ -70,7 +70,8 @@ jobs:
         id: ver
         run: |
           ver=$(grep 'val verName' app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
-          count=$(git rev-list HEAD --count)
+          offset=$(sed -n 's/^val versionCodeFloorOffset = //p' app/build.gradle.kts)
+          count=$(( $(git rev-list HEAD --count) + offset ))
           echo "version=${ver}-${count}" >> "$GITHUB_OUTPUT"
 
       - name: List build artifacts
@@ -114,7 +115,8 @@ jobs:
         id: ver
         run: |
           ver=$(grep 'val verName' app/build.gradle.kts | sed 's/.*"\(.*\)".*/\1/')
-          count=$(git rev-list HEAD --count)
+          offset=$(sed -n 's/^val versionCodeFloorOffset = //p' app/build.gradle.kts)
+          count=$(( $(git rev-list HEAD --count) + offset ))
           echo "version=${ver}-${count}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/download-artifact@v4
@@ -152,7 +154,8 @@ jobs:
 
       - name: Bump update.json
         run: |
-          COUNT=$(git rev-list HEAD --count)
+          OFFSET=$(sed -n 's/^val versionCodeFloorOffset = //p' app/build.gradle.kts)
+          COUNT=$(( $(git rev-list HEAD --count) + OFFSET ))
           RELEASE_NAME=$(basename zips/*Release*.zip)
           ZIP_URL="https://github.com/${{ github.repository }}/releases/download/${VER}/${RELEASE_NAME}"
           jq ".versionCode = $COUNT | .zipUrl = \"$ZIP_URL\"" module/update.json > /tmp/update.json
