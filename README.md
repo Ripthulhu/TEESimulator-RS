@@ -18,6 +18,8 @@ data is unavailable. The change matches the separately patched 282 build tested
 on our Pixel 10 Pro XL. A source-built module from this fork has not yet been
 tested on the phone. Automatic module updates are disabled until the fork has a
 verified release; the upstream update feed could replace this change.
+GitHub Actions builds both ZIPs on branch pushes. Publishing a release requires a
+manual workflow run on `main`.
 
 ## What it does
 
