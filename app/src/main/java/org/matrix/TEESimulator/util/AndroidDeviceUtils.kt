@@ -422,11 +422,12 @@ object AndroidDeviceUtils {
             Build.VERSION_CODES.Q to 100000,
         )
 
+    internal fun resolveOsVersion(cachedOsVersion: Int?, sdkInt: Int): Int =
+        cachedOsVersion ?: osVersionMap[sdkInt] ?: 160000
+
     val osVersion: Int
         get() =
-            DeviceAttestationService.CachedAttestationData?.osVersion
-                ?: osVersionMap[Build.VERSION.SDK_INT]
-                ?: 160000 // Default to a recent version
+            resolveOsVersion(DeviceAttestationService.CachedAttestationData?.osVersion, Build.VERSION.SDK_INT)
 
     private val attestVersionMap =
         mapOf(

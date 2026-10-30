@@ -76,6 +76,7 @@ android {
 kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_21) } }
 
 dependencies {
+    testImplementation("junit:junit:4.13.2")
     compileOnly(project(":stub"))
     compileOnly(libs.annotation)
     implementation(libs.bcpkix)
